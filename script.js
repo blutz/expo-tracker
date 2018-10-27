@@ -1,12 +1,12 @@
 const METRO_API = 'https://cors.io/?https://api.metro.net'
-const DIRECTIONS = {
-  '806_0_var0': 'Los Angeles',
-  '806_1_var1': 'Santa Monica',
+
+function getNewData() {
+  console.log('updating data')
+  fetch(`${METRO_API}/agencies/lametro-rail/routes/806/stops/80134/predictions/`)
+    .then(res => res.json())
+    .then(updatePage)
+    .catch(couldntUpdate)
 }
-fetch(`${METRO_API}/agencies/lametro-rail/routes/806/stops/80134/predictions/`)
-  .then(res => res.json())
-  .then(updatePage)
-  .catch(couldntUpdate)
 
 function couldntUpdate(reason) {
   // TODO: Do something reasonable
@@ -34,3 +34,6 @@ function putOnPage({ sm, la }) {
   document.getElementById('countdown-sm').innerHTML = sm
   document.getElementById('countdown-la').innerHTML = la
 }
+
+getNewData()
+window.setInterval(getNewData, 5000)
