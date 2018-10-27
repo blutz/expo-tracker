@@ -24,22 +24,13 @@ function updatePage(predictions) {
       toSM.push(item.minutes)
     }
   }
-  toSM.sort((a, b) => a - b)
-  toLA.sort((a, b) => a - b)
-  console.log(toSM)
-  console.log(toLA)
-
   let addMin = (item) => item + ' min'
+  let sm = toSM.sort((a, b) => a - b).map(addMin).join(', ')
+  let la = toLA.sort((a, b) => a - b).map(addMin).join(', ')
+  putOnPage({ sm, la })
+}
 
-  let toSMWords = toSM.map(addMin)
-  let toLAWords = toLA.map(addMin)
-
-  console.log(toSMWords)
-  console.log(toLAWords)
-
-  let toSMString = toSMWords.join(', ')
-  let toLAString = toLAWords.join(', ')
-  console.log(toSMString)
-  console.log(toLAString)
-
+function putOnPage({ sm, la }) {
+  document.getElementById('countdown-sm').innerHTML = sm
+  document.getElementById('countdown-la').innerHTML = la
 }
